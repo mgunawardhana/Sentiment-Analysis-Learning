@@ -1,3 +1,5 @@
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=40&pause=1000&color=1FF77A&center=true&vCenter=true&width=750&height=60&lines=SENTIMENT+ANALYSIS+LEARNING...)](https://git.io/typing-svg)
+
 ## ꜱᴇᴛᴜᴘ ᴋᴀɢɢʟᴇ ᴀᴜᴛʜ
 ```python
 import os
