@@ -1,0 +1,32 @@
+# Ignore virtual environment
+venv/
+.env
+*.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Ignore Jupyter notebook checkpoints
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# Ignore Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore data and artifacts (if not needed in repo)
+data/
+artifacts/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore PyCharm project files
+.idea/
+
+# Ignore virtual documents
+.virtual_documents/
+
+# Ignore Anaconda projects
+anaconda_projects/
