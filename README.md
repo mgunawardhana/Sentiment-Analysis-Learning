@@ -10,6 +10,19 @@ from kaggle.api.kaggle_api_extended import KaggleApi
 api = KaggleApi()
 api.authenticate()
 ```
+<div align="center">
+ 
+![image](https://github.com/user-attachments/assets/24a92d1c-9db8-48b8-8620-55fa9b4d028d)
+
+![image](https://github.com/user-attachments/assets/fb7dffde-b574-4203-8a95-cab0d88a0921)
+
+![image](https://github.com/user-attachments/assets/ec5f8afa-280a-48f9-8251-ba63c41398e5)
+
+![image](https://github.com/user-attachments/assets/d5e830ed-7f9e-4703-a858-d01908d2069e)
+
+![image](https://github.com/user-attachments/assets/8b4465f1-82bf-491b-8204-3fea3517b95c)
+
+</div>
 
 <div align="center">
 
