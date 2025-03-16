@@ -10,7 +10,7 @@ from kaggle.api.kaggle_api_extended import KaggleApi
 api = KaggleApi()
 api.authenticate()
 ```
-
+## prediction pipeline
 ```python
 import numpy as np
 import pandas as pd
