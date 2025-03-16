@@ -10,19 +10,66 @@ from kaggle.api.kaggle_api_extended import KaggleApi
 api = KaggleApi()
 api.authenticate()
 ```
-<div align="center">
- 
-![image](https://github.com/user-attachments/assets/24a92d1c-9db8-48b8-8620-55fa9b4d028d)
 
-![image](https://github.com/user-attachments/assets/fb7dffde-b574-4203-8a95-cab0d88a0921)
+```python
+import numpy as np
+import pandas as pd
+import re
+import string
+import pickle
 
-![image](https://github.com/user-attachments/assets/ec5f8afa-280a-48f9-8251-ba63c41398e5)
+def remove_punctuations(text):
+    for punctuation in string.punctuation:
+        text = text.replace(punctuation, '')
+    return text
 
-![image](https://github.com/user-attachments/assets/d5e830ed-7f9e-4703-a858-d01908d2069e)
+with open('../static/model/model.pickel', 'rb') as f:
+    model = pickle.load(f)
 
-![image](https://github.com/user-attachments/assets/8b4465f1-82bf-491b-8204-3fea3517b95c)
+with open('../static/model/corpora/stopwords/english', 'r') as file:
+    sw = file.read().splitlines()
 
-</div>
+vocab = pd.read_csv('../static/model/vocabulary.txt', header=None)
+tokens = vocab[0].tolist()
+
+from nltk.stem import PorterStemmer
+ps = PorterStemmer()
+
+def preprocessing(text):
+    data = pd.DataFrame([text], columns=['tweet'])
+    data["tweet"] = data["tweet"].apply(lambda x: " ".join(x.lower() for x in x.split())) # tweet column to lowercase
+    data["tweet"] = data["tweet"].apply(lambda x: " ".join(re.sub(r'^https?:\/\/.*[\r\n]*', '', x, flags=re.MULTILINE) for x in x.split()))
+    data["tweet"] = data["tweet"].apply(remove_punctuations)
+    data["tweet"] = data["tweet"].str.replace('\d+', '', regex=True) # removing numbers
+    data['tweet'] = data['tweet'].apply(lambda x: " ".join(x for x in x.split() if x not in sw))
+    data['tweet'] = data['tweet'].apply(lambda x: " ".join(ps.stem(x) for x in x.split())) # getting base words
+    return data['tweet']
+
+def vectorizer(ds, vocabulary):
+    vectorized_lst = []
+
+    for sentence in ds:
+        sentence_lst = np.zeros(len(vocabulary))
+
+        for i in range(len(vocabulary)):
+            if vocabulary[i] in sentence.split():
+                sentence_lst[i] = 1
+
+        vectorized_lst.append(sentence_lst)
+
+    vectorized_lst_new = np.asarray(vectorized_lst, dtype=np.float32)
+
+    return vectorized_lst_new
+
+txt = 'awesome product i love it'
+preprocessed_txt = preprocessing(txt)
+vectorized_txt = vectorizer(preprocessed_txt, tokens)
+prediction = model.predict(vectorized_txt)
+prediction
+
+get_prediction(prediction)
+```
+
 
 <div align="center">
 
