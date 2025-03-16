@@ -37,13 +37,16 @@ ps = PorterStemmer()
 
 def preprocessing(text):
     data = pd.DataFrame([text], columns=['tweet'])
-    data["tweet"] = data["tweet"].apply(lambda x: " ".join(x.lower() for x in x.split())) # tweet column to lowercase
+    data["tweet"] = data["tweet"].apply(lambda x: " "
+    .join(x.lower() for x in x.split())) # tweet column to lowercase
     data["tweet"] = data["tweet"]
-    .apply(lambda x: " ".join(re.sub(r'^https?:\/\/.*[\r\n]*', '', x, flags=re.MULTILINE) for x in x.split()))
+    .apply(lambda x: " "
+    .join(re.sub(r'^https?:\/\/.*[\r\n]*', '', x, flags=re.MULTILINE) for x in x.split()))
     data["tweet"] = data["tweet"].apply(remove_punctuations)
     data["tweet"] = data["tweet"].str.replace('\d+', '', regex=True) # removing numbers
     data['tweet'] = data['tweet'].apply(lambda x: " ".join(x for x in x.split() if x not in sw))
-    data['tweet'] = data['tweet'].apply(lambda x: " ".join(ps.stem(x) for x in x.split())) # getting base words
+    data['tweet'] = data['tweet']
+    .apply(lambda x: " ".join(ps.stem(x) for x in x.split())) # getting base words
     return data['tweet']
 
 def vectorizer(ds, vocabulary):
